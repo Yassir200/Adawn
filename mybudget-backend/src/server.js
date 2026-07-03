@@ -44,23 +44,6 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'Serveur marche bien' });
 });
 
-// --- NOUVEAU CODE AJOUTÉ ICI ---
-
-// 1. Définir le chemin vers le dossier compilé du frontend
-// (Utilise 'dist' pour Vite, ou 'build' si tu utilises Create React App)
-const frontendPath = path.join(__dirname, 'dist');
-
-// 2. Servir les fichiers statiques (JS, CSS, images compilés)
-app.use(express.static(frontendPath));
-
-// 3. Route "catch-all" : pour toute autre route, on renvoie l'application React
-// C'est indispensable si tu utilises React Router pour la navigation interne
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
-});
-
-// -------------------------------
-
 // demarrage du serveur
 app.listen(PORT, () => {
   console.log(`Serveur demarre sur le port ${PORT}`);
