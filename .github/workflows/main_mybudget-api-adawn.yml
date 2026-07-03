@@ -33,8 +33,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: ./mybudget-backend  # <-- MODIFICATION : Prépare uniquement le dossier backend pour Azure
+          name: node-app-backend
+          path: ./mybudget-backend   # <-- MODIFICATION : Prépare uniquement le dossier backend pour Azure
 
   deploy:
     runs-on: ubuntu-latest

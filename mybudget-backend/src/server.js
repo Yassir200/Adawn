@@ -5,50 +5,49 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const app = express();
+// On définit le port correctement : Azure fournit son port, sinon on utilise 3000
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Serveur lancé sur le port ${port}`);
-});
 
-// configuration des middlewares
+// Configuration des middlewares
 app.use(cors({
     origin: [
         'https://adawn.tech', 
         'https://www.adawn.tech',
-        'http://localhost:5173', // Pratique pour tes tests en local
-        // Ajoute ici l'URL temporaire de ton Azure Static Web App si tu ne l'as pas encore liée au domaine
+        'http://localhost:5173'
     ],
     credentials: true
 }));
+
 app.use(express.json());
 
 // Permettre à React de lire les images du dossier uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// connexion a la base de donnees
+// Connexion a la base de donnees
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/gestion_budget')
   .then(() => console.log('MongoDB connecte'))
   .catch((err) => console.error('Erreur MongoDB :', err));
 
-// import des routes
+// Import des routes
 const routesUtilisateurs = require('./routes/utilisateurs');
 const routesCategories = require('./routes/categories');
 const routesTransactions = require('./routes/transactions');
 const routesStatistiques = require('./routes/statistiques');
 
-// utilisation des routes
+// Utilisation des routes
 app.use('/api/utilisateurs', routesUtilisateurs);
 app.use('/api/categories', routesCategories);
 app.use('/api/transactions', routesTransactions);
 app.use('/api/statistiques', routesStatistiques);
 
-// route de test simple
+// Route de test simple
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Serveur marche bien' });
 });
 
-// demarrage du serveur
-app.listen(PORT, () => {
-  console.log(`Serveur demarre sur le port ${PORT}`);
+// Démarrage du serveur : Un seul appel, avec la bonne variable 'port'
+app.listen(port, () => {
+  console.log(`Serveur demarre sur le port ${port}`);
 });
+
 module.exports = app;
