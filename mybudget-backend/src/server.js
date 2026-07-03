@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Serveur lancé sur le port ${port}`);
+});
 
 // configuration des middlewares
 app.use(cors({
