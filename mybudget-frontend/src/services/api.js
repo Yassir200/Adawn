@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // configuration d'axios
 const api = axios.create({
-  baseURL: 'https://mybudget-backend-seven.vercel.app/api', 
+  // 💡 On utilise directement la variable d'environnement fournie par Vite
+  baseURL: import.meta.env.VITE_API_URL, 
 });
 
 // intercepteur pour attacher le token JWT aux requetes
