@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "start": "serve -s dist",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "react-dom": "^19.2.4",
     "react-i18next": "^17.0.6",
     "react-router-dom": "^7.14.1",
+    "serve": "^14.2.6",
     "sweetalert2": "^11.26.24",
     "sweetalert2-react-content": "^5.1.2"
   },
