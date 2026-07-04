@@ -3,7 +3,8 @@ import axios from 'axios';
 // configuration d'axios
 const api = axios.create({
   // 💡 On utilise directement la variable d'environnement fournie par Vite
-  baseURL: import.meta.env.VITE_API_URL || 'https://adawn.tech/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://mybudget-api-adawn-bnazg9bkeeapawdp.italynorth-01.azurewebsites.net/api',
+});
 
 // intercepteur pour attacher le token JWT aux requetes
 api.interceptors.request.use((config) => {
