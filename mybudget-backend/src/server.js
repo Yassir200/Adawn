@@ -13,7 +13,8 @@ app.use(cors({
     origin: [
         'https://adawn.tech', 
         'https://www.adawn.tech',
-        'http://localhost:5173'
+        'http://localhost:5173',
+        'https://mybudget-frontend-adawn-bdd8cncscqekd5an.italynorth-01.azurewebsites.net'
     ],
     credentials: true
 }));
