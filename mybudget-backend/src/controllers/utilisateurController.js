@@ -108,9 +108,9 @@ const motDePasseOublie = async (req, res) => {
         });
 
         await transporter.sendMail({
-            from: `"MyBudget Support" <${process.env.EMAIL_USER}>`, 
+            from: `"Adawn Support" <${process.env.EMAIL_USER}>`, 
             to: utilisateur.email,
-            subject: 'Réinitialisation de votre mot de passe - MyBudget',
+            subject: 'Réinitialisation de votre mot de passe - Adawn',
             html: `
                 <div style="font-family: sans-serif; text-align: center; padding: 20px;">
                     <h2 style="color: #2563eb;">Réinitialisation</h2>
@@ -170,7 +170,7 @@ const envoyerMessageSupport = async (req, res) => {
             from: `"Support MyBudget" <${process.env.EMAIL_USER}>`, 
             to: process.env.EMAIL_USER,
             replyTo: email,
-            subject: `[Assistance MyBudget] Nouveau ticket de ${nom}`,
+            subject: `[Assistance Adawn] Nouveau ticket de ${nom}`,
             html: `
                 <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px;">
                     <h2 style="color: #2563eb;">Nouveau message de support</h2>
