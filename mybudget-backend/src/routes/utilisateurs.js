@@ -137,9 +137,9 @@ router.post('/', async (req, res) => {
         });
 
         await transporter.sendMail({
-            from: `"MyBudget Support" <${process.env.EMAIL_USER}>`, 
+            from: `"Adawn Support" <${process.env.EMAIL_USER}>`, 
             to: emailNettoye,
-            subject: 'Vérifiez votre adresse email - MyBudget',
+            subject: 'Vérifiez votre adresse email - Adawn',
             html: `<div style="font-family:sans-serif;text-align:center;">
                     <h2>Code de vérification</h2>
                     <h1 style="color:#2563eb;letter-spacing:5px;">${otp}</h1>
@@ -238,7 +238,7 @@ router.post('/demander-changement-email', verifierToken, async (req, res) => {
         });
 
         await transporter.sendMail({
-            from: `"MyBudget Support" <${process.env.EMAIL_USER}>`, 
+            from: `"Adawn Support" <${process.env.EMAIL_USER}>`, 
             to: nouvelEmail,
             subject: "Confirmation de changement d'email",
             html: `<p>Votre code de confirmation est : <b>${otp}</b></p>`

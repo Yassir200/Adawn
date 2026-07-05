@@ -115,13 +115,13 @@ function Support() {
 
                   <div className="space-y-4">
                     {/* Carte Email */}
-                    <a href="mailto:support@monbudget.ma" className="group bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl border border-slate-100 dark:border-slate-600 shadow-sm hover:border-blue-300 dark:hover:border-blue-500 transition-all flex items-center gap-4">
+                    <a href="mailto:support@adawn.tech" className="group bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl border border-slate-100 dark:border-slate-600 shadow-sm hover:border-blue-300 dark:hover:border-blue-500 transition-all flex items-center gap-4">
                       <div className="w-10 h-10 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
                         <Mail size={18} />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-slate-800 dark:text-slate-200">{t('support.emailLabel', 'Email')}</p>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">support@monbudget.dev</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">support@adawn.tech</p>
                       </div>
                     </a>
 
