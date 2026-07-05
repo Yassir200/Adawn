@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Tag, ArrowRightLeft, Menu, X, ChevronLeft, ChevronRight, Wallet, Bell, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import api from '../services/api';
+import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
 function Sidebar() {
@@ -14,30 +14,10 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  // 💡 RÉCUPÉRATION INSTANTANÉE DEPUIS LE CONTEXTE (Aucun chargement !)
+  const { user, logout } = useContext(AuthContext);
+
   const isActive = (path) => location.pathname === path;
-  const [user, setUser] = useState({ nom: 'Chargement...', email: '', avatar: '' });
-
-  const fetchCurrentUser = async () => {
-    try {
-      const res = await api.get('/utilisateurs/me');
-      const userData = { nom: res.data.nom || 'Utilisateur', email: res.data.email, avatar: res.data.avatar || '' };
-      setUser(userData);
-      localStorage.setItem('utilisateur', JSON.stringify(userData));
-    } catch (err) {
-      const storedUser = localStorage.getItem('utilisateur');
-      if (storedUser) setUser(JSON.parse(storedUser));
-    }
-  };
-
-  useEffect(() => {
-    fetchCurrentUser();
-    const handleProfileUpdate = () => {
-      const storedUser = localStorage.getItem('utilisateur');
-      if (storedUser) setUser(JSON.parse(storedUser));
-    };
-    window.addEventListener('profilMisAJour', handleProfileUpdate);
-    return () => window.removeEventListener('profilMisAJour', handleProfileUpdate);
-  }, []);
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -60,12 +40,16 @@ function Sidebar() {
       borderRadius: '1.5rem'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('utilisateur');
+        logout(); // On utilise la fonction de nettoyage du contexte
         window.location.href = '/Login';
       }
     });
   };
+
+  // Sécurités d'affichage au cas où les données arrivent en décalé
+  const displayNom = user?.nom || 'Chargement...';
+  const displayEmail = user?.email || '';
+  const displayAvatar = user?.avatar || `https://ui-avatars.com/api/?name=${displayNom.replace(' ', '+')}&background=eff6ff&color=2563eb&bold=true`;
 
   return (
     <>
@@ -83,13 +67,13 @@ function Sidebar() {
 
         <div onClick={() => handleNavigate('/Profile')} className={`mx-4 mt-20 lg:mt-8 mb-4 bg-slate-50 dark:bg-[#112240]/60 hover:bg-white dark:hover:bg-[#112240] rounded-2xl border border-slate-100 dark:border-blue-500/20 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group shrink-0 flex items-center ${isCollapsed ? 'px-1 py-4 justify-center' : 'px-6 py-5 gap-3'}`}>
           <div className="relative shrink-0">
-            <img src={user.avatar || `https://ui-avatars.com/api/?name=${user.nom.replace(' ', '+')}&background=eff6ff&color=2563eb&bold=true`} alt="Avatar" className={`${isCollapsed ? 'w-10 h-10' : 'w-11 h-11'} rounded-full border-2 border-white dark:border-[#0A192F] shadow-md group-hover:scale-105 transition-all duration-300 object-cover`} />
+            <img src={displayAvatar} alt="Avatar" className={`${isCollapsed ? 'w-10 h-10' : 'w-11 h-11'} rounded-full border-2 border-white dark:border-[#0A192F] shadow-md group-hover:scale-105 transition-all duration-300 object-cover`} />
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-[#0A192F] rounded-full shadow-sm"></div>
           </div>
           {!isCollapsed && (
             <div className="overflow-hidden flex-1 transition-opacity duration-300 delay-100">
-              <h4 className="text-sm font-bold text-slate-800 dark:text-blue-50 truncate group-hover:text-cyan-400 transition-colors">{user.nom}</h4>
-              <p className="text-[11px] text-slate-500 dark:text-blue-200/60 truncate">{user.email || "Chargement..."}</p>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-blue-50 truncate group-hover:text-cyan-400 transition-colors">{displayNom}</h4>
+              <p className="text-[11px] text-slate-500 dark:text-blue-200/60 truncate">{displayEmail}</p>
             </div>
           )}
         </div>
@@ -108,14 +92,9 @@ function Sidebar() {
             <div onClick={() => handleNavigate('/Budgets')} className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'gap-3 px-4'} py-3.5 rounded-xl font-bold cursor-pointer transition-all duration-300 ${isActive('/Budgets') ? 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-600/20 dark:to-cyan-600/20 text-blue-600 dark:text-cyan-400 shadow-sm border border-cyan-500/30' : 'text-slate-500 dark:text-blue-200/60 hover:bg-slate-100 dark:hover:bg-[#112240] hover:translate-x-1 hover:text-cyan-600 dark:hover:text-cyan-300'}`}>
               <Wallet size={isCollapsed ? 22 : 18} className="shrink-0 transition-all duration-300" /> {!isCollapsed && <span className="truncate">{t('sidebar.budgets', 'Budgets')}</span>}
             </div>
-
             <div onClick={() => handleNavigate('/Notifications')} className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'gap-3 px-4'} py-3.5 rounded-xl font-bold cursor-pointer transition-all duration-300 ${isActive('/Notifications') ? 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-600/20 dark:to-cyan-600/20 text-blue-600 dark:text-cyan-400 shadow-sm border border-cyan-500/30' : 'text-slate-500 dark:text-blue-200/60 hover:bg-slate-100 dark:hover:bg-[#112240] hover:translate-x-1 hover:text-cyan-600 dark:hover:text-cyan-300'}`}>
               <Bell size={isCollapsed ? 22 : 18} className="shrink-0 transition-all duration-300" /> {!isCollapsed && <span className="truncate">{isEng ? 'Notifications' : 'Notifications'}</span>}
             </div>
-
-
-
-
           </div>
         </nav>
 
