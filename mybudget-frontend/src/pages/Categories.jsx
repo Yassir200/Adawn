@@ -50,7 +50,7 @@ function Categories() {
   const { t, i18n } = useTranslation();
   const isEng = i18n.language === 'en';
 
-  const { transactions, categories, refreshData } = useContext(DataContext);
+  const { transactions, categories, loading, refreshData } = useContext(DataContext);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [uiMode, setUiMode] = useState('presets');
   const [newCat, setNewCat] = useState({ nom: '', couleur: '#3b82f6', icone: 'FileText', budgetMax: '' });
@@ -58,6 +58,7 @@ function Categories() {
   const presetColors = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#14b8a6', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef', '#f43f5e', '#64748b'];
 
   
+
 
   // 💡 CORRECTION : Ajout sécurisé d'un budgetMax par défaut
   const handleQuickAdd = async (preset) => {

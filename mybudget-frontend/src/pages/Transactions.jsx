@@ -23,7 +23,7 @@ function Transactions() {
   const { t, i18n } = useTranslation();
   const isEng = i18n.language === 'en';
 
-  const { transactions, categories, refreshData } = useContext(DataContext);
+  const { transactions, categories, loading, refreshData } = useContext(DataContext);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
