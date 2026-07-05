@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, Tag, LogOut, Wallet, PlusCircle, Trash2, Pencil, X, AlertCircle, CheckCircle2, ArrowRightLeft, ChevronDown, Search, Mic, Camera, Heart, Gamepad2, Home, Utensils, GraduationCap, Bus, ShoppingCart, Users, Dumbbell, Shirt, Apple, Briefcase, Coffee, Plane, FileText, Car, Train, Ship, Bike, Fuel, Pizza, Croissant, Beer, Wine, Tv, Film, Music, Ticket, Smartphone, Laptop, Monitor, Mouse, Sofa, Bed, Bath, Lightbulb, Stethoscope, Syringe, Pill, Baby, Cat, Dog, CreditCard, Coins, Landmark, PiggyBank, Receipt, Gift, Scissors, Wrench, Umbrella, Globe
 } from 'lucide-react';
-import Sidebar from '../components/Sidebar';
+
 
 const ICON_MAP = {
   Heart, Gamepad2, Home, Utensils, GraduationCap, Bus, ShoppingCart, Users, Dumbbell, Shirt, Apple, Briefcase, Coffee, Plane, FileText, Wallet, Car, Train, Ship, Bike, Fuel, Pizza, Croissant, Beer, Wine, Tv, Film, Music, Mic, Ticket, Smartphone, Laptop, Monitor, Mouse, Sofa, Bed, Bath, Lightbulb, Stethoscope, Syringe, Pill, Baby, Cat, Dog, CreditCard, Coins, Landmark, PiggyBank, Receipt, Gift, Scissors, Wrench, Umbrella, Globe
@@ -398,7 +398,7 @@ function Transactions() {
   return (
     <>
       <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
-        <Sidebar />
+     
         <div className="flex-1 flex flex-col h-full overflow-hidden relative">
           <header className="h-20 shrink-0 pl-16 pr-4 md:px-8 flex justify-between items-center bg-[#f4f7fb] dark:bg-[#050B14]">
             <h1 className="text-2xl font-bold">{t('transactions.pageTitle', 'Saisie des transactions')}</h1>

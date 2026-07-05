@@ -15,7 +15,7 @@ import {
   Baby, Cat, Dog, CreditCard, Coins, Landmark, PiggyBank, Receipt,
   Gift, Scissors, Wrench, Umbrella, Globe
 } from 'lucide-react';
-import Sidebar from '../components/Sidebar';
+
 
 const ICON_MAP = {
   Heart, Gamepad2, Home, Utensils, GraduationCap, Bus,
@@ -222,7 +222,7 @@ function Categories() {
 
   return (
     <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
-      <Sidebar />
+   
 
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         <header className="h-20 shrink-0 bg-[#f4f7fb] dark:bg-[#050B14] pl-16 pr-4 md:px-8 flex justify-between items-center transition-colors duration-300">

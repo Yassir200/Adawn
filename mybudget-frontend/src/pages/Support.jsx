@@ -9,7 +9,7 @@ import {
   MessageSquare, 
   LifeBuoy
 } from 'lucide-react';
-import Sidebar from '../components/Sidebar';
+
 import api from '../services/api'; // 💡 Ajout de l'import API
 
 const MySwal = withReactContent(Swal);
@@ -71,7 +71,7 @@ function Support() {
 
   return (
     <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-slate-900 flex font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
-      <Sidebar />
+
       
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         {/* En-tête */}

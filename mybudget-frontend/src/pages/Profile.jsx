@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+
 import { Globe, ChevronDown, Sun, Moon, Save, Lock, AlertTriangle, Eye, EyeOff, LogOut, LifeBuoy, Camera } from 'lucide-react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -217,7 +217,7 @@ function Profile() {
 
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden bg-[#f4f7fb] dark:bg-slate-900 flex font-sans">
-      <Sidebar />
+   
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         <header className="h-20 shrink-0 pl-16 pr-4 md:px-8 flex justify-between items-center bg-[#f4f7fb] dark:bg-slate-900">
           <h1 className="text-2xl font-bold text-slate-800 dark:text-white">{t('profile.title', 'Mon Profil')}</h1>
