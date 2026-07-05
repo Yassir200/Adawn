@@ -1,17 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { AuthProvider } from './context/AuthContext'
-import { ThemeProvider } from './context/ThemeContext'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { AuthProvider } from './context/AuthContext';
+import { DataProvider } from './context/DataContext'; // 💡 NOUVEL IMPORT
+import { ThemeProvider } from './context/ThemeContext';
 import './i18n';
-// point d'entree principal de l'application
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <AuthProvider>
-      <ThemeProvider> 
-        <App />
-      </ThemeProvider>
+      <DataProvider> {/* 💡 LE PROVIDER EST ICI */}
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </DataProvider>
     </AuthProvider>
-  </StrictMode>,
-)
+  </React.StrictMode>,
+);

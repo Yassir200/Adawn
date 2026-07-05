@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { DataContext } from '../context/DataContext';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -22,9 +24,8 @@ function Dashboard() {
   const { t, i18n } = useTranslation(); 
   const isEng = i18n.language === 'en'; 
   
-  const [allTransactions, setAllTransactions] = useState([]);
-  const [categories, setCategories] = useState([]); 
-  const [loading, setLoading] = useState(true);
+
+  const { transactions: allTransactions, categories, loading, refreshData } = useContext(DataContext);
 
   const [timeFilter, setTimeFilter] = useState('month');
   const [customDates, setCustomDates] = useState({ start: '', end: '' });
@@ -34,22 +35,6 @@ function Dashboard() {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
   });
 
-  const fetchDashboardData = async () => {
-    try {
-      const [resTx, resCat] = await Promise.all([
-        api.get('/transactions'),
-        api.get('/categories')
-      ]);
-      setAllTransactions(resTx.data);
-      setCategories(resCat.data);
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchDashboardData(); }, []);
 
   const formatDevise = (montant) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
@@ -158,7 +143,7 @@ function Dashboard() {
 
   return (
     <>
-      <WelcomeOnboarding onComplete={fetchDashboardData} />
+      <WelcomeOnboarding onComplete={refreshData} />
       <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
        
 
