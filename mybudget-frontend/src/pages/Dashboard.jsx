@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { LayoutDashboard, PlusCircle, ArrowDownRight, ArrowUpRight, Calendar, Download, Sun, Moon } from 'lucide-react';
 import api from '../services/api';
-
+import Sidebar from '../components/Sidebar';
 import WelcomeOnboarding from '../components/WelcomeOnboarding';
 import { useTheme } from '../context/ThemeContext';
 import { jsPDF } from 'jspdf';
@@ -154,13 +154,13 @@ function Dashboard() {
   const doughnutDepenses = { labels: depensesData.length > 0 ? depensesData.map(c => t(`categories_list.${c.nom}`, c.nom)) : [t('dashboard.empty', 'Aucune dépense')], datasets: [{ data: depensesData.length > 0 ? depensesData.map(c => c.total) : [1], backgroundColor: depensesData.length > 0 ? depensesData.map(c => c.couleur) : [isDarkMode ? '#112240' : '#f1f5f9'], borderWidth: 0, hoverOffset: 4 }] };
   const doughnutRevenus = { labels: revenusData.length > 0 ? revenusData.map(c => t(`categories_list.${c.nom}`, c.nom)) : [t('dashboard.empty', 'Aucun revenu')], datasets: [{ data: revenusData.length > 0 ? revenusData.map(c => c.total) : [1], backgroundColor: revenusData.length > 0 ? revenusData.map(c => c.couleur) : [isDarkMode ? '#112240' : '#f1f5f9'], borderWidth: 0, hoverOffset: 4 }] };
 
-  
+  if (loading) return <div className="flex h-screen items-center justify-center bg-[#f4f7fb] dark:bg-[#050B14] text-slate-800 dark:text-blue-50 transition-colors duration-300">Chargement...</div>;
 
   return (
     <>
       <WelcomeOnboarding onComplete={fetchDashboardData} />
       <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
-   
+        <Sidebar />
 
         <div className="flex-1 flex flex-col h-full overflow-hidden relative">
           <header className="h-20 shrink-0 pl-16 pr-4 md:px-8 flex justify-between items-center bg-[#f4f7fb]/80 dark:bg-[#050B14]/80 backdrop-blur-md sticky top-0 z-30 transition-colors duration-300 border-b border-transparent dark:border-blue-900/30">
