@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircle, AlertTriangle, Info } from 'lucide-react';
 import api from '../services/api';
-
+import { DataContext } from '../context/DataContext';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 function Budgets() {
@@ -10,31 +11,12 @@ function Budgets() {
   const { t, i18n } = useTranslation(); 
   const isEng = i18n.language === 'en'; 
   
-  const [transactions, setTransactions] = useState([]);
-  const [categories, setCategories] = useState([]); 
-  const [loading, setLoading] = useState(true);
+  const { transactions, categories, loading } = useContext(DataContext);
 
   const [reportMonth, setReportMonth] = useState(() => {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
   });
-
-  const fetchData = async () => {
-    try {
-      const [resTx, resCat] = await Promise.all([
-        api.get('/transactions'),
-        api.get('/categories')
-      ]);
-      setTransactions(resTx.data);
-      setCategories(resCat.data);
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchData(); }, []);
 
   // Calcul intelligent des budgets pour le mois sélectionné
   const [year, month] = reportMonth.split('-');

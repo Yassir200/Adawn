@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bell, AlertTriangle, AlertCircle, CheckCircle2, Sun, Moon } from 'lucide-react';
 import api from '../services/api';
-
+import { DataContext } from '../context/DataContext';
+import { useContext } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 
@@ -12,26 +13,8 @@ function Notifications() {
   const { t, i18n } = useTranslation();
   const isEng = i18n.language === 'en';
 
-  const [categories, setCategories] = useState([]);
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
-    try {
-      const [resTx, resCat] = await Promise.all([
-        api.get('/transactions'),
-        api.get('/categories')
-      ]);
-      setTransactions(resTx.data);
-      setCategories(resCat.data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Erreur de chargement des notifications", err);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchData(); }, []);
+  const { transactions, categories, loading } = useContext(DataContext);
 
   // Calcul dynamique des alertes basées sur le mois en cours
   const now = new Date();
