@@ -159,7 +159,7 @@ function Dashboard() {
   return (
     <>
       <WelcomeOnboarding onComplete={fetchDashboardData} />
-      <div className="h-full flex flex-col font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300 relative">
+      <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
    
 
         <div className="flex-1 flex flex-col h-full overflow-hidden relative">
