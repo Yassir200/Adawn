@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { LayoutDashboard, PlusCircle, ArrowDownRight, ArrowUpRight, Calendar, Download, Sun, Moon } from 'lucide-react';
 import api from '../services/api';
-import Sidebar from '../components/Sidebar';
+
 import WelcomeOnboarding from '../components/WelcomeOnboarding';
 import { useTheme } from '../context/ThemeContext';
 import { jsPDF } from 'jspdf';
@@ -160,7 +160,7 @@ function Dashboard() {
     <>
       <WelcomeOnboarding onComplete={fetchDashboardData} />
       <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
-        <Sidebar />
+       
 
         <div className="flex-1 flex flex-col h-full overflow-hidden relative">
           <header className="h-20 shrink-0 pl-16 pr-4 md:px-8 flex justify-between items-center bg-[#f4f7fb]/80 dark:bg-[#050B14]/80 backdrop-blur-md sticky top-0 z-30 transition-colors duration-300 border-b border-transparent dark:border-blue-900/30">
