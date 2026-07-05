@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { DataContext } from '../context/DataContext';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import Swal from 'sweetalert2';
@@ -48,26 +50,14 @@ function Categories() {
   const { t, i18n } = useTranslation();
   const isEng = i18n.language === 'en';
 
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { transactions, categories, refreshData } = useContext(DataContext);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [uiMode, setUiMode] = useState('presets');
   const [newCat, setNewCat] = useState({ nom: '', couleur: '#3b82f6', icone: 'FileText', budgetMax: '' });
 
   const presetColors = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#14b8a6', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef', '#f43f5e', '#64748b'];
 
-  const fetchCategories = async () => {
-    try {
-      const res = await api.get('/categories');
-      setCategories(res.data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Erreur", err);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchCategories(); }, []);
+  
 
   // 💡 CORRECTION : Ajout sécurisé d'un budgetMax par défaut
   const handleQuickAdd = async (preset) => {

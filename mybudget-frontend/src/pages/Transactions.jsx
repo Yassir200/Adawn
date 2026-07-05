@@ -1,3 +1,6 @@
+import { DataContext } from '../context/DataContext';
+import { useContext } from 'react';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
@@ -20,9 +23,7 @@ function Transactions() {
   const { t, i18n } = useTranslation();
   const isEng = i18n.language === 'en';
 
-  const [categories, setCategories] = useState([]);
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { transactions, categories, refreshData } = useContext(DataContext);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -102,22 +103,6 @@ function Transactions() {
     };
   });
 
-  const fetchData = async () => {
-    try {
-      const [resCat, resTx] = await Promise.all([
-        api.get('/categories'),
-        api.get('/transactions')
-      ]);
-      setCategories(resCat.data);
-      setTransactions(resTx.data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Erreur de chargement", err);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchData(); }, []);
 
   useEffect(() => {
     sessionStorage.setItem('transactionDraft', JSON.stringify(formData));
