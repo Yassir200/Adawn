@@ -154,12 +154,12 @@ function Dashboard() {
   const doughnutDepenses = { labels: depensesData.length > 0 ? depensesData.map(c => t(`categories_list.${c.nom}`, c.nom)) : [t('dashboard.empty', 'Aucune dépense')], datasets: [{ data: depensesData.length > 0 ? depensesData.map(c => c.total) : [1], backgroundColor: depensesData.length > 0 ? depensesData.map(c => c.couleur) : [isDarkMode ? '#112240' : '#f1f5f9'], borderWidth: 0, hoverOffset: 4 }] };
   const doughnutRevenus = { labels: revenusData.length > 0 ? revenusData.map(c => t(`categories_list.${c.nom}`, c.nom)) : [t('dashboard.empty', 'Aucun revenu')], datasets: [{ data: revenusData.length > 0 ? revenusData.map(c => c.total) : [1], backgroundColor: revenusData.length > 0 ? revenusData.map(c => c.couleur) : [isDarkMode ? '#112240' : '#f1f5f9'], borderWidth: 0, hoverOffset: 4 }] };
 
-  if (loading) return <div className="flex h-screen items-center justify-center bg-[#f4f7fb] dark:bg-[#050B14] text-slate-800 dark:text-blue-50 transition-colors duration-300">Chargement...</div>;
+  
 
   return (
     <>
       <WelcomeOnboarding onComplete={fetchDashboardData} />
-      <div className="h-screen overflow-hidden bg-[#f4f7fb] dark:bg-[#050B14] flex font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300">
+      <div className="h-full flex flex-col font-sans text-slate-800 dark:text-blue-50 transition-colors duration-300 relative">
    
 
         <div className="flex-1 flex flex-col h-full overflow-hidden relative">
