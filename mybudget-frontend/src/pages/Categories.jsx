@@ -68,7 +68,7 @@ function Categories() {
       const motSucces = isEng ? 'successfully added!' : 'ajoutée !';
       const nomTraduit = t(`categories_list.${preset.nom}`, preset.nom);
       setStatus({ type: 'success', message: `${nomTraduit} ${motSucces}` });
-      fetchCategories();
+      refreshData();
       setTimeout(() => setStatus({ type: '', message: '' }), 3000);
     } catch (err) {
       console.error("Détails erreur QuickAdd:", err.response?.data);
@@ -95,7 +95,7 @@ function Categories() {
       setStatus({ type: 'success', message: t('categories.customSuccess', 'Catégorie sur-mesure créée !') });
       setNewCat({ nom: '', couleur: '#3b82f6', icone: 'FileText', budgetMax: '' });
       setUiMode('presets');
-      fetchCategories();
+      refreshData();
       setTimeout(() => setStatus({ type: '', message: '' }), 3000);
     } catch (err) {
       console.error("Détails erreur CustomSubmit:", err.response?.data);
@@ -149,7 +149,7 @@ function Categories() {
             background: isDark ? '#0A192F' : '#ffffff',
             color: isDark ? '#eff6ff' : '#0f172a'
           });
-          fetchCategories();
+          refreshData();
         } catch (err) {
           MySwal.fire({
             icon: 'error',
@@ -182,7 +182,7 @@ function Categories() {
       if (result.isConfirmed) {
         try {
           await api.delete(`/categories/${id}`);
-          fetchCategories();
+          refreshData();
           MySwal.fire({
             title: t('categories.deletedTitle', 'Supprimée !'),
             text: t('categories.deletedMsg', 'La catégorie a bien été effacée.'),

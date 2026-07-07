@@ -220,7 +220,7 @@ function Transactions() {
         setStatus({ type: 'success', message: t('transactions.addSuccess', 'Opération ajoutée !') });
         setFormData({ titre: '', montant: '', type: 'depense', categorieId: '', description: '', date: todayString });
         sessionStorage.removeItem('transactionDraft');
-        fetchData();
+        refreshData();
         setTimeout(() => setStatus({ type: '', message: '' }), 3000);
       } catch (err) {
         setStatus({ type: 'error', message: err.response?.data?.message || t('transactions.addError', "Erreur d'ajout") });
@@ -309,7 +309,7 @@ function Transactions() {
     try {
       await api.put(`/transactions/${editingTx._id}`, editingTx);
       setEditingTx(null);
-      fetchData();
+      refreshData();
       MySwal.fire({ icon: 'success', title: isEng ? 'Updated!' : 'Modifiée !', toast: true, position: 'top-end', timer: 2000, showConfirmButton: false });
     } catch (error) {
       MySwal.fire({ icon: 'error', title: isEng ? 'Error' : 'Erreur', text: isEng ? 'Could not update transaction.' : 'Impossible de modifier la transaction.' });
@@ -335,7 +335,7 @@ function Transactions() {
       if (result.isConfirmed) {
         try {
           await api.delete(`/transactions/${id}`);
-          fetchData();
+          refreshData();
           MySwal.fire({
             title: t('transactions.deletedTitle', 'Supprimée !'),
             text: t('transactions.deletedMsg', 'Votre opération a bien été effacée.'),
